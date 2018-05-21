@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<body>
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+    var version = getQueryString("version");
+    console.log("version:"+version);
+    parent.parent.loadTY(version);
+</script>
+</body>
+</html>
