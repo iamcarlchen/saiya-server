@@ -72,6 +72,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/templates/index.html");
         registry.addViewController("/static").setViewName("forward:/templates/static.html");
+        registry.addViewController("/survey").setViewName("forward:/templates/survey.html");
 //        registry.addRedirectViewController("/","#/wy/wy-index");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         super.addViewControllers(registry);
