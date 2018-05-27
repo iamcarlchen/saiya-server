@@ -1,5 +1,7 @@
 package com.chinaredstar.cms.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.chinaredstar.cms.api.component.ServiceResult;
 import com.chinaredstar.cms.api.model.CmsQuestionAnswer;
 import com.chinaredstar.cms.api.model.CmsQuestionnaireReport;
@@ -11,7 +13,7 @@ import com.chinaredstar.cms.api.vo.questionnaire.CmsQuestionnaireAnswerVo;
 //import com.chinaredstar.cms.mapper.CmsQuestionnaireMapper;
 //import com.chinaredstar.cms.mapper.CmsQuestionnaireReportMapper;
 //import com.chinaredstar.cms.mapper.CmsQuestionnaireUserMapper;
-import com.chinaredstar.perseus.utils.JsonUtil;
+//import com.chinaredstar.perseus.utils.JsonUtil;
 import com.greatbee.base.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +84,7 @@ public class CmsQuestionAnswerServiceImpl implements CmsQuestionAnswerService {
             // userId:如用手机号存在则用手机号, 否则生成UUID
             String userId = StringUtil.isInvalid(saveVo.getMobile()) ? genUserId() : saveVo.getMobile();
             List<CmsQuestionAnswer> answers = new ArrayList<>();
-            for(CmsQuestionAnswerVo answerVo : saveVo.getQuestionAnswers()){
+            for (CmsQuestionAnswerVo answerVo : saveVo.getQuestionAnswers()) {
                 CmsQuestionAnswer targetAnswer = new CmsQuestionAnswer();
                 BeanUtils.copyProperties(saveVo, targetAnswer);
                 BeanUtils.copyProperties(answerVo, targetAnswer);
@@ -131,10 +133,11 @@ public class CmsQuestionAnswerServiceImpl implements CmsQuestionAnswerService {
 
     /**
      * 保存用户信息, 手机号必填
+     *
      * @param saveVo
      */
-    private void saveUser(CmsQuestionnaireAnswerVo saveVo){
-        if(StringUtil.isValid(saveVo.getMobile())) {
+    private void saveUser(CmsQuestionnaireAnswerVo saveVo) {
+        if (StringUtil.isValid(saveVo.getMobile())) {
             CmsQuestionnaireUser user = new CmsQuestionnaireUser();
             user.setAddress(saveVo.getAddress());
             user.setArea(saveVo.getArea());
@@ -158,7 +161,8 @@ public class CmsQuestionAnswerServiceImpl implements CmsQuestionAnswerService {
         report.setPhone(saveVo.getMobile());
         report.setUserName(saveVo.getUserName());
         report.setCreateTime(new Date());
-        report.setAnswerContent(JsonUtil.toJson(saveVo.getAnswerContents(), false));
+//        report.setAnswerContent(JsonUtil.toJson(saveVo.getAnswerContents(), false));
+        report.setAnswerContent(JSONArray.toJSONString(saveVo.getAnswerContents()));
         //TODO
 //        cmsQuestionnaireReportMapper.insert(report);
     }
