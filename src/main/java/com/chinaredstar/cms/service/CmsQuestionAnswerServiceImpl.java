@@ -1,7 +1,6 @@
 package com.chinaredstar.cms.service;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.chinaredstar.cms.api.component.ServiceResult;
 import com.chinaredstar.cms.api.model.CmsQuestionAnswer;
 import com.chinaredstar.cms.api.model.CmsQuestionnaireReport;
@@ -9,11 +8,12 @@ import com.chinaredstar.cms.api.model.CmsQuestionnaireUser;
 import com.chinaredstar.cms.api.service.CmsQuestionAnswerService;
 import com.chinaredstar.cms.api.vo.questionnaire.CmsQuestionAnswerVo;
 import com.chinaredstar.cms.api.vo.questionnaire.CmsQuestionnaireAnswerVo;
-//import com.chinaredstar.cms.mapper.CmsQuestionAnswerMapper;
-//import com.chinaredstar.cms.mapper.CmsQuestionnaireMapper;
-//import com.chinaredstar.cms.mapper.CmsQuestionnaireReportMapper;
-//import com.chinaredstar.cms.mapper.CmsQuestionnaireUserMapper;
+import com.chinaredstar.cms.mapper.CmsQuestionAnswerMapper;
+import com.chinaredstar.cms.mapper.CmsQuestionnaireMapper;
+import com.chinaredstar.cms.mapper.CmsQuestionnaireReportMapper;
+import com.chinaredstar.cms.mapper.CmsQuestionnaireUserMapper;
 //import com.chinaredstar.perseus.utils.JsonUtil;
+import com.greatbee.base.bean.DBException;
 import com.greatbee.base.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,17 +33,17 @@ import java.util.UUID;
 public class CmsQuestionAnswerServiceImpl implements CmsQuestionAnswerService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-//    @Autowired
-//    private CmsQuestionAnswerMapper cmsQuestionAnswerMapper;
-//
-//    @Autowired
-//    private CmsQuestionnaireMapper cmsQuestionnaireMapper;
-//
-//    @Autowired
-//    private CmsQuestionnaireReportMapper cmsQuestionnaireReportMapper;
-//
-//    @Autowired
-//    private CmsQuestionnaireUserMapper cmsQuestionnaireUserMapper;
+    @Autowired
+    private CmsQuestionAnswerMapper cmsQuestionAnswerMapper;
+
+    @Autowired
+    private CmsQuestionnaireMapper cmsQuestionnaireMapper;
+
+    @Autowired
+    private CmsQuestionnaireReportMapper cmsQuestionnaireReportMapper;
+
+    @Autowired
+    private CmsQuestionnaireUserMapper cmsQuestionnaireUserMapper;
 
     @Override
     public ServiceResult saveQuestionAnswer(CmsQuestionnaireAnswerVo saveVo) {
@@ -111,9 +111,8 @@ public class CmsQuestionAnswerServiceImpl implements CmsQuestionAnswerService {
 //                }
 //
 //            }
-            //TODO
-//            cmsQuestionAnswerMapper.insertMulti(answers);
-//            cmsQuestionnaireMapper.countUpWillNumByPrimaryKey(saveVo.getQuestionnaireId());
+            cmsQuestionAnswerMapper.insertMulti(answers);
+            cmsQuestionnaireMapper.countUpWillNumByPrimaryKey(saveVo.getQuestionnaireId());
 
             // 添加用户信息, 以用户手机号为依据
             saveUser(saveVo);
@@ -136,7 +135,7 @@ public class CmsQuestionAnswerServiceImpl implements CmsQuestionAnswerService {
      *
      * @param saveVo
      */
-    private void saveUser(CmsQuestionnaireAnswerVo saveVo) {
+    private void saveUser(CmsQuestionnaireAnswerVo saveVo) throws DBException {
         if (StringUtil.isValid(saveVo.getMobile())) {
             CmsQuestionnaireUser user = new CmsQuestionnaireUser();
             user.setAddress(saveVo.getAddress());
@@ -148,12 +147,11 @@ public class CmsQuestionAnswerServiceImpl implements CmsQuestionAnswerService {
             user.setUserIp(saveVo.getUserIp());
             user.setUserName(saveVo.getUserName());
             user.setCreateTime(new Date());
-            //TODO
-//            cmsQuestionnaireUserMapper.insertSelective(user);
+            cmsQuestionnaireUserMapper.insertSelective(user);
         }
     }
 
-    private void saveReport(CmsQuestionnaireAnswerVo saveVo, String userId) {
+    private void saveReport(CmsQuestionnaireAnswerVo saveVo, String userId) throws DBException {
         CmsQuestionnaireReport report = new CmsQuestionnaireReport();
         report.setQuestionnaireId(saveVo.getQuestionnaireId());
         report.setUserId(userId);
@@ -163,8 +161,7 @@ public class CmsQuestionAnswerServiceImpl implements CmsQuestionAnswerService {
         report.setCreateTime(new Date());
 //        report.setAnswerContent(JsonUtil.toJson(saveVo.getAnswerContents(), false));
         report.setAnswerContent(JSONArray.toJSONString(saveVo.getAnswerContents()));
-        //TODO
-//        cmsQuestionnaireReportMapper.insert(report);
+        cmsQuestionnaireReportMapper.insert(report);
     }
 
     /**

@@ -15,6 +15,7 @@
             <list>
                 <value>classpath:config.properties</value>
                 <value>classpath:db/db_ty.properties</value>
+                <value>classpath:conf/survey.properties</value>
             </list>
         </property>
     </bean>
@@ -30,4 +31,6 @@
     <!--TY Server Config-->
     <import resource="classpath:ty_config.xml"/>
 
+    <!-- Survey Server Config-->
+    <import resource="classpath:conf/survey_server.xml"/>
 </beans>
