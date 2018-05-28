@@ -10,7 +10,7 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
 
-    <bean id="tyDataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+    <bean id="tyDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" primary="true">
         <property name="driverClassName" value="${ty.jdbc.mysql.Driver}"></property>
         <property name="url" value="${db.connection}"></property>
         <property name="username" value="${db.connection.username}"></property>
