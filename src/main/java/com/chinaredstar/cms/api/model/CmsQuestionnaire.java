@@ -1,12 +1,14 @@
 package com.chinaredstar.cms.api.model;
 
+import com.greatbee.base.bean.Identified;
+
 import java.io.Serializable;
 
 /**
  * CMS Questionnaire
  *
  */
-public class CmsQuestionnaire implements Serializable {
+public class CmsQuestionnaire implements Serializable,Identified {
     private Integer id;
     private Integer willNum;
 

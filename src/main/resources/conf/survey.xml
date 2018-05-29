@@ -16,7 +16,7 @@
             <generator class="identity"/>
         </id>
         <property name="questionnaireId" column="questionnaire_id" type="integer"/>
-        <property name="questionId" column="question_id" type="string"/>
+        <property name="questionId" column="question_id" type="integer"/>
         <property name="optionId" column="option_id" type="string"/>
         <property name="optionContent" column="option_content" type="string"/>
         <property name="userIp" column="user_ip" type="string"/>
