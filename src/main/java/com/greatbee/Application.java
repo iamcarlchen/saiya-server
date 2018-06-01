@@ -2,6 +2,10 @@ package com.greatbee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.session.SessionAutoConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ImportResource;
 
 /**
@@ -9,8 +13,9 @@ import org.springframework.context.annotation.ImportResource;
  * <p/>
  * Created by CarlChen on 2017/5/27.
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {SessionAutoConfiguration.class, DataSourceAutoConfiguration.class, RedisAutoConfiguration.class})
 @ImportResource({"classpath:server.xml"})
+@EnableCaching
 public class Application {
 
     private static final String CONFIG_PATH="--configPath";

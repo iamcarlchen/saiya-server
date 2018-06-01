@@ -10,11 +10,11 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
 
-    <bean id="tyDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" primary="true">
+    <bean id="surveyDataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
         <property name="driverClassName" value="${ty.jdbc.mysql.Driver}"></property>
-        <property name="url" value="${db.connection}"></property>
-        <property name="username" value="${db.connection.username}"></property>
-        <property name="password" value="${db.connection.password}"></property>
+        <property name="url" value="${survey.db.connection}"></property>
+        <property name="username" value="${survey.db.connection.username}"></property>
+        <property name="password" value="${survey.db.connection.password}"></property>
         <!--公共配置属性-->
         <property name="maxActive" value="${ty.tomcat.jdbc.pool.maxActive}"></property>
         <property name="initialSize" value="${ty.tomcat.jdbc.pool.initialSize}"></property>
@@ -38,15 +38,12 @@
     </bean>
 
     <!--Hibernate Session Factory-->
-    <bean id="tySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="tyDataSource"/>
+    <bean id="surveySessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="surveyDataSource"/>
 
         <property name="mappingResources">
             <list>
-                <!--TY DB-->
-                <value>conf/ty_db.xml</value>
-                <!-- TY DB Core-->
-                <value>conf/ty_db_core.xml</value>
+                <value>conf/survey.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -70,18 +67,22 @@
         </property>
     </bean>
 
-    <!-- 配置事务管理器 指定其作用的sessionFactory把事务交给Spring去处理 -->
-    <bean id="tyTransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory">
-            <ref bean="tySessionFactory"/>
-        </property>
+    <!--Hibernate Template base-->
+    <bean id="surveyHibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+        <property name="sessionFactory" ref="surveySessionFactory"/>
     </bean>
-    <!--以 @Transactional 标注来定义事务,默认事务管理使用transactionManager-->
-    <tx:annotation-driven transaction-manager="tyTransactionManager"
-                          proxy-target-class="true"/>
 
+    <!--Abstract Manager base-->
+    <bean id="surveyBasicManager" class="com.greatbee.base.manager.ext.AbstractBasicManager" abstract="true">
+        <property name="hibernateTemplate" ref="surveyHibernateTemplate"/>
+    </bean>
 
-    <!--引入ty配置  TY Server-->
-    <import resource="classpath:conf/ty_server.xml"/>
-
+    <bean id="cmsQuestionAnswerMapper" class="com.chinaredstar.cms.mapper.CmsQuestionAnswerMapper"
+          parent="surveyBasicManager"/>
+    <bean id="cmsQuestionnaireMapper" class="com.chinaredstar.cms.mapper.CmsQuestionnaireMapper"
+          parent="surveyBasicManager"/>
+    <bean id="cmsQuestionnaireReportMapper" class="com.chinaredstar.cms.mapper.CmsQuestionnaireReportMapper"
+          parent="surveyBasicManager"/>
+    <bean id="cmsQuestionnaireUserMapper" class="com.chinaredstar.cms.mapper.CmsQuestionnaireUserMapper"
+          parent="surveyBasicManager"/>
 </beans>
