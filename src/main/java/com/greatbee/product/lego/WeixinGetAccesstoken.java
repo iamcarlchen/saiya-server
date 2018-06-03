@@ -38,7 +38,7 @@ public class WeixinGetAccesstoken implements Lego, ExceptionCode {
 
         //发起http请求调用微信的api
         try {
-            RestApiResponse response = HttpClientUtil.get("https://api.weixin.qq.com/cgi-bin/token?grant_type=" + grant_type + "&appid=" + appid + "&secret=" + secret, new HashMap<>());
+            RestApiResponse response = HttpClientUtil.get("https://api.weixin.qq.com/cgi-bin/token?grant_type=" + grant_type + "&appid=" + appid + "&secret=" + secret, new HashMap<String,String>());
 
             if (StringUtil.isInvalid(response.getResponseBody())) {
                 throw new LegoException("调用微信接口无返回", 1000002L);
