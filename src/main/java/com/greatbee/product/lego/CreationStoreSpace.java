@@ -9,6 +9,8 @@ import com.greatbee.core.lego.Lego;
 import com.greatbee.core.lego.LegoException;
 import com.greatbee.core.lego.Output;
 import com.greatbee.core.util.HttpClientUtil;
+import com.greatbee.product.code.CodeInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 
@@ -16,55 +18,61 @@ import java.util.HashMap;
  * 创建储存空间
  */
 public class CreationStoreSpace implements Lego {
+
+    @Autowired
+    public CodeInterface codeInterface;
     @Override
     public void execute(Input input, Output output) throws LegoException {
-        //储存空间名称
-        String Bucket = input.getInputValue("Bucket");
-        String Region = input.getInputValue("oss-cn-shanghai-internal.aliyuncs.com");
-        String Endpoint = input.getInputValue("oss-cn-shanghai-internal.aliyuncs.com");
+        String bucKet = input.getInputValue("bucKet");
+        String region = input.getInputValue("oss-cn-shanghai-internal.aliyuncs.com");
+        String endPoint = input.getInputValue("oss-cn-shanghai-internal.aliyuncs.com");
         String accessKeyId = input.getInputValue("accessKeyId");
         String accessKeySecret = input.getInputValue("accessKeySecret");
-        String store_type = input.getInputValue("store_type");
-        String read_write_jurisdiction = input.getInputValue("read_write_jurisdiction");
+        String storeType = input.getInputValue("storeType");
+        String readWriteJurisdiction = input.getInputValue("readWriteJurisdiction");
 
         //判断传入的参数是否都有，没有就抛出异常
-        if(StringUtil.isInvalid(Bucket)){
-            throw new LegoException("Bucket不能为空",1000001L);
+        if(StringUtil.isInvalid(bucKet)){
+            throw new LegoException("bucket不能为空",codeInterface.ERROR_WX_BUCKET_ENCODE);
         }
-
-        if(StringUtil.isInvalid(Region)){
-            throw new LegoException("Region不能为空",1000001L);
+        //判断传入的参数是否都有，没有就抛出异常
+        if(StringUtil.isInvalid(region)){
+            throw new LegoException("region不能为空",codeInterface.ERROR_WX_REGION_ENCODE);
         }
-
-        if(StringUtil.isInvalid(Endpoint)){
-            throw new LegoException("Endpoint不能为空",1000001L);
+        //判断传入的参数是否都有，没有就抛出异常
+        if(StringUtil.isInvalid(endPoint)){
+            throw new LegoException("endPoint不能为空",codeInterface.ERROR_WX_ENDPOINT_ENCODE);
         }
-
+        //判断传入的参数是否都有，没有就抛出异常
         if(StringUtil.isInvalid(accessKeyId)){
-            throw new LegoException("accessKeyId不能为空",1000001L);
+            throw new LegoException("accessKeyId不能为空",codeInterface.ERROR_WX_ACCESSKEYID_ENCODE);
         }
-
+        //判断传入的参数是否都有，没有就抛出异常
         if(StringUtil.isInvalid(accessKeySecret)){
-            throw new LegoException("accessKeySecret不能为空",1000001L);
+            throw new LegoException("accessKeySecret不能为空",codeInterface.ERROR_WX_ACCESSKEYSECRET_ENCODE);
+        }
+        //判断传入的参数是否都有，没有就抛出异常
+        if(StringUtil.isInvalid(storeType)){
+            throw new LegoException("storeType不能为空",codeInterface.ERROR_WX_STORETYPE_ENCODE);
         }
 
-        if(StringUtil.isInvalid(store_type)){
-            throw new LegoException("store_type不能为空",1000001L);
-        }
-
-        if(StringUtil.isInvalid(read_write_jurisdiction)){
-            throw new LegoException("read_write_jurisdiction不能为空",1000001L);
+        if(StringUtil.isInvalid(readWriteJurisdiction)){
+            throw new LegoException("readWriteJurisdiction不能为空",codeInterface.ERROR_WX_READWRITEJURISDICTION_ENCODE);
         }
 
         //发起http请求调用oss的api
         try{
-            RestApiResponse response = HttpClientUtil.get("https://oss-example.oss-cn-shanghai-internal.aliyuncs.com/oss-api.pdf?Bucket="+Bucket+"&accessKeyId"+accessKeyId+"&accessKeySecret"+accessKeySecret+"&store_type"+store_type+"&read_write_jurisdiction"+read_write_jurisdiction,new HashMap<String,String>());
+            RestApiResponse response = HttpClientUtil.get("https://oss-example.oss-cn-shanghai-internal.aliyuncs.com/oss-api.pdf?bucKet="+bucKet+"&accessKeyId"+accessKeyId+"&accessKeySecret"+accessKeySecret+"&storeType"+storeType+"&readWriteJurisdiction"+readWriteJurisdiction,new HashMap<String,String>());
+            //判断接口是否为空
             if(StringUtil.isInvalid(response.getResponseBody())){
+                //为空就抛出异常
                 throw new LegoException("调用OSS接口无返回", 1000002L);
             }
+            //不为空就转换为json格式
             JSONObject jsonObject = JSONObject.parseObject(response.getResponseBody());
             output.setOutputValue("response", jsonObject);
         } catch (DBException e){
+            //接口请求失败
             throw new LegoException("调用OSS接口失败", 1000002L);
         }
 
