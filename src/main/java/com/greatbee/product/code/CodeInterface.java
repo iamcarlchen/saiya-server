@@ -18,15 +18,17 @@ public interface CodeInterface  extends ExceptionCode{
 
     long ERROR_WX_READWRITEJURISDICTION_ENCODE = 100007L;  //判断readWriteJurisdiction字段不能为空
 
-    long ERROR_WX_UPLOADINGCATALOG_ENCODE = 100007L;  //判断uploadingCatalog字段不能为空
+    long ERROR_WX_UPLOADINGCATALOG_ENCODE = 100008L;  //判断uploadingCatalog字段不能为空
 
-    long ERROR_WX_CATALOGSITE_ENCODE = 100008L;   //判断catalogSite字段不能为空
+    long ERROR_WX_CATALOGSITE_ENCODE = 100009L;   //判断catalogSite字段不能为空
 
-    long ERROR_WX_FILEVISITSTATUS_ENCODE = 100008L;   //判断fileVisitStatus字段不能为空
+    long ERROR_WX_FILEVISITSTATUS_ENCODE = 100010L;   //判断fileVisitStatus字段不能为空
 
-    long ERROR_WX_UPLOADINGFILE_ENCODE = 100008L;   //判断uploadingFile字段不能为空
+    long ERROR_WX_UPLOADINGFILE_ENCODE = 100011L;   //判断uploadingFile字段不能为空
 
-    long ERROR_WX_BUCKETNAME_ENCODE = 100008L;   //判断bucketName字段不能为空
+    long ERROR_WX_BUCKETNAME_ENCODE = 100012L;   //判断bucketName字段不能为空
 
-    long ERROR_WX_OBJECTNAME_ENCODE = 100008L;   //判断objectName字段不能为空
+    long ERROR_WX_OBJECTNAME_ENCODE = 100013L;   //判断objectName字段不能为空
+
+    long ERROR_WX_DELETEDOBJECT_ENCODE = 100014L;   //判断deletedObjects字段不能为空
 }
