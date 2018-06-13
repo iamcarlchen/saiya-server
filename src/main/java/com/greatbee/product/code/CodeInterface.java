@@ -31,4 +31,20 @@ public interface CodeInterface  extends ExceptionCode{
     long ERROR_WX_OBJECTNAME_ENCODE = 100013L;   //判断objectName字段不能为空
 
     long ERROR_WX_DELETEDOBJECT_ENCODE = 100014L;   //判断deletedObjects字段不能为空
+
+    long ERROR_WX_APPID_ENCODE = 100015L;   //判断appid字段不能为空
+
+    long ERROR_WX_SECRET_ENCODE = 100016L;   //判断secret字段不能为空
+
+    long ERROR_WX_CODE_ENCODE = 100015L;   //判断code字段不能为空
+
+    long ERROR_WX_GRANTTYPE_ENCODE = 100016L;   //判断grantType字段不能为空
+
+    long ERROR_WX_DELIMITER_ENCODE = 100015L;   //判断delimiter字段不能为空
+
+    long ERROR_WXMARKER_ENCODE = 100016L;   //判断marker字段不能为空
+
+    long ERROR_WX_MAXKEYS_ENCODE = 100015L;   //判断maxKeys字段不能为空
+
+    long ERROR_WX_PREFIX_ENCODE = 100016L;   //判断prefix字段不能为空
 }
