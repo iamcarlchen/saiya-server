@@ -18,6 +18,13 @@
 
 
 <script type="text/javascript">
+    var host = document.location.hostname;
+    if(host == "ty.saiyachina.com"){
+        window._TY_Home = "/home_ln";
+    }else if(host == "supplier.saiyachina.com"){
+        window._TY_Home = "/home_supplier";
+    }
+
     var TY_Client_Domain = "http://greatbee-ty.oss-cn-hangzhou.aliyuncs.com/run_dist/";
 	// var TY_Client_Domain = "http://localhost:8080/run_dist/";
     window.loadTY = function(hash){
