@@ -15,7 +15,7 @@
             <list>
                 <value>classpath:config.properties</value>
                 <value>classpath:db/db_ty.properties</value>
-                <value>classpath:conf/survey.properties</value>
+                <value>classpath:db/survey.properties</value>
             </list>
         </property>
     </bean>
