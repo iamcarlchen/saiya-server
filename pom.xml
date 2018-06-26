@@ -282,7 +282,7 @@
         <dependency>
             <groupId>greatbee</groupId>
             <artifactId>ty-lego-vendor</artifactId>
-            <version>1.0.4</version>
+            <version>1.0.5</version>
         </dependency>
         <dependency>
             <groupId>greatbee</groupId>
