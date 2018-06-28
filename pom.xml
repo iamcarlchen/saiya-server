@@ -6,7 +6,7 @@
 
     <groupId>greatbee</groupId>
     <artifactId>saiya</artifactId>
-    <version>1.0.14-SNAPSHOT</version>
+    <version>1.0.15-SNAPSHOT</version>
 
     <name>saiya</name>
     <packaging>jar</packaging>
