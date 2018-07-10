@@ -6,7 +6,7 @@
 
     <groupId>greatbee</groupId>
     <artifactId>saiya</artifactId>
-    <version>1.0.17-SNAPSHOT</version>
+    <version>1.0.18-SNAPSHOT</version>
 
     <name>saiya</name>
     <packaging>jar</packaging>
@@ -284,12 +284,12 @@
         <dependency>
             <groupId>greatbee</groupId>
             <artifactId>ty-server-core</artifactId>
-            <version>2.0.6</version>
+            <version>2.0.8</version>
         </dependency>
         <dependency>
             <groupId>greatbee</groupId>
             <artifactId>ty-lego-vendor</artifactId>
-            <version>1.0.10</version>
+            <version>1.0.12</version>
         </dependency>
         <dependency>
             <groupId>greatbee</groupId>
