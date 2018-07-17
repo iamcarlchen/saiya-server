@@ -279,6 +279,13 @@
             <artifactId>jmimemagic</artifactId>
             <version>0.1.5</version>
         </dependency>
+        <!-- 七牛云  音视转码，图片压缩等功能-->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.2.12</version>
+        </dependency>
+
 
         <!-- TY Server Core-->
         <dependency>
@@ -289,7 +296,7 @@
         <dependency>
             <groupId>greatbee</groupId>
             <artifactId>ty-lego-vendor</artifactId>
-            <version>1.0.12</version>
+            <version>1.0.13</version>
         </dependency>
         <dependency>
             <groupId>greatbee</groupId>
