@@ -19,17 +19,27 @@
 
 
 <script type="text/javascript">
-    var host = document.location.hostname;
-    if(host == "ty.saiyachina.com"){
-        window._TY_Home = "/home_ln";
-    }else if(host == "supplier.saiyachina.com"){
-        window._TY_Home = "/home_supplier";
-    }else if(host == "xlx.saiyachina.com"){
-        window._TY_Home = "/xlx_c_home_page";
-    }else if(host == "demo.greatbee.com"){
-        window._TY_Home = "/home_ln";
-    }else if(host == "www.mokelay.com"){
-        window._TY_Home = "/home_ln";
+    var Domain_Home = {
+        //赛吖相关
+        "ty.saiyachina.com":"/home_ln",
+        "xlx.saiyachina.com":"/xlx_c_home_page",
+
+        //Mokelay相关
+        "demo.greatbee.com":"/home_ln",
+        "www.mokelay.com":"/home_ln",
+
+        //赤峰测试域名
+        "b-chifeng.saiyachina.com":"/ty_b_app_dashboard",
+
+        //赤峰正式，平台(center),运营(o)针对E端,工厂(f)，门店(s)，针对B端
+        "center.red-deal.com":"/home_ln",
+        "o.red-deal.com":"/home_ln",
+        "f.red-deal.com":"/ty_b_app_dashboard",
+        "s.red-deal.com":"/ty_b_app_dashboard"
+    };
+    var home = Domain_Home[document.location.hostname];
+    if(home){
+        window._TY_Home = home;
     }
 
 //    var TY_Client_Domain = "http://greatbee-ty.oss-cn-hangzhou.aliyuncs.com/run_dist/";
