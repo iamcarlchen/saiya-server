@@ -5,6 +5,7 @@
     <title>TY 首页</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline' 'unsafe-eval' 'self' ty-cdn.greatbee.com cdn.bootcss.com *.baidu.com ">
 </head>
 
 <body>
@@ -24,14 +25,15 @@
     }else if(host == "supplier.saiyachina.com"){
         window._TY_Home = "/home_supplier";
     }else if(host == "xlx.saiyachina.com"){
-        window._TY_Home = "/home_xlx";
+        window._TY_Home = "/xlx_c_home_page";
     }else if(host == "demo.greatbee.com"){
         window._TY_Home = "/home_ln";
     }else if(host == "www.mokelay.com"){
         window._TY_Home = "/home_ln";
     }
 
-    var TY_Client_Domain = "http://greatbee-ty.oss-cn-hangzhou.aliyuncs.com/run_dist/";
+//    var TY_Client_Domain = "http://greatbee-ty.oss-cn-hangzhou.aliyuncs.com/run_dist/";
+    var TY_Client_Domain = "http://ty-cdn.greatbee.com/ty-client-core/";
 	// var TY_Client_Domain = "http://localhost:8080/run_dist/";
     window.loadTY = function(hash){
         console.log("load hash=" + hash);

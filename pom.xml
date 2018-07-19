@@ -6,7 +6,7 @@
 
     <groupId>greatbee</groupId>
     <artifactId>saiya</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.18-SNAPSHOT</version>
 
     <name>saiya</name>
     <packaging>jar</packaging>
@@ -273,16 +273,30 @@
             <version>1.2.17</version>
         </dependency>
 
+        <!--引入根据File 判断文件ContentType工具类-->
+        <dependency>
+            <groupId>net.sf.jmimemagic</groupId>
+            <artifactId>jmimemagic</artifactId>
+            <version>0.1.5</version>
+        </dependency>
+        <!-- 七牛云  音视转码，图片压缩等功能-->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.2.12</version>
+        </dependency>
+
+
         <!-- TY Server Core-->
         <dependency>
             <groupId>greatbee</groupId>
             <artifactId>ty-server-core</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.9</version>
         </dependency>
         <dependency>
             <groupId>greatbee</groupId>
             <artifactId>ty-lego-vendor</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.19</version>
         </dependency>
         <dependency>
             <groupId>greatbee</groupId>
