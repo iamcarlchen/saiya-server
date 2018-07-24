@@ -1,1 +1,0 @@
-webpackJsonp([10],{1600:function(n,r,e){var o={"./bb-custom":1296,"./bb-custom.vue":1296};function t(n){return e(u(n))}function u(n){var r=o[n];if(!(r+1))throw new Error("Cannot find module '"+n+"'.");return r}t.keys=function(){return Object.keys(o)},t.resolve=u,n.exports=t,t.id=1600}});
