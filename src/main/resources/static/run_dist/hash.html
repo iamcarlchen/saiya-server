@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+</head>
+
+<body>
+</body>
+</html>
+
+<script type="text/javascript">
+    //通过种Cookie方式，同域下可行
+    function getRootDomain(){
+        var arr = document.domain.split('.');
+        if(arr.length === 2){
+            return document.domain;
+        }
+        if(arr.length > 2 && arr[0] !== 'www'){
+            return arr.slice(1).join('.')
+        }
+        return arr.slice(1).join('.')
+    }
+    var currentDomain = getRootDomain();
+    document.cookie = "staticHash=901fc74d3db17d050bc1; path=/; domain="+currentDomain;
+
+    //等domain ready，frame来调用，同域下可行
+    function loadHashKey(){
+        return "901fc74d3db17d050bc1";
+    }
+
+    //主动调parent的方法，同域下可行
+    //if(window.parent && window.parent.window && window.parent.window.loadTY){
+    //    window.parent.window.loadTY("901fc74d3db17d050bc1");
+    //}
+
+    //通过加载parent的domain的irame，可以跨域
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+    var parentDomain = getQueryString("domain");
+    if(parentDomain && parentDomain.length >0){
+        var parentFrame = document.createElement('iframe');
+        parentFrame.name = 'tmp_frame';
+        parentFrame.src = parentDomain+"/static?version=901fc74d3db17d050bc1";
+        parentFrame.style.display = 'none';
+        document.body.appendChild(parentFrame);
+    }
+</script>
