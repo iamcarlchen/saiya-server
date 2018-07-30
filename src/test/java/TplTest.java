@@ -1,7 +1,9 @@
 import com.greatbee.core.lego.LegoException;
 import com.greatbee.core.lego.util.LegoUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,8 +64,32 @@ public class TplTest {
 
         String tpl12 = "${(((page!'1')?number - 1) * ((pageSize!'10')?number))?number}";
 
-        String result = LegoUtil.transferInputValue(tpl12, map);
+        String tpl13 = "${.now?string('yyMMddHHmmSSsss')}";//yyMMddHHmmss
+
+
+        List<String> list = new ArrayList<>();
+        list.add("123");
+        list.add("456");
+        Map _map = new HashMap<>();
+        _map.put("list",list);
+        map.put("info",_map);
+//        map.put("list", list);
+        List<String> list2 = new ArrayList<>();
+        list2.add("abc");
+        list2.add("def");
+        map.put("list2",list2);
+
+        String tpl14 =
+                "<#list info.list as item>\n" +
+                "  <p>${item}\n <%=${list2[item?index]}%>" +
+                "</#list>";
+        String tpl15 = "${list?eval}";
+
+        String tpl16 = "${.now?string('ssS')}";
+        String result = LegoUtil.transferInputValue(tpl14, map);
+        String result2 = LegoUtil.transferInputValue(tpl16, map);
         System.out.println("result="+result);
+        System.out.println("result2="+result2);
 
 
 
