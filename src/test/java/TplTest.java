@@ -35,6 +35,12 @@ public class TplTest {
         map.put("page","2");
         map.put("pageSize","10");
 
+        Map _map1 = new HashMap<>();
+        Map __map = new HashMap<>();
+        __map.put("id","12345");
+        _map1.put("E_SESSION_USER_DETAIL_KEY",__map);
+        map.put("session",_map1);
+
 //        String tpl = "<#if (type?split(\",\")?size > 1) >${type?split(\",\")[1]}</#if>";
 
         String tpl = "{uuid:${uuid},type:<#if (type?split(\",\")?size > 1) >${type?split(\",\")[1]}</#if>}";
@@ -86,10 +92,16 @@ public class TplTest {
         String tpl15 = "${list?eval}";
 
         String tpl16 = "${.now?string('ssS')}";
-        String result = LegoUtil.transferInputValue(tpl14, map);
+
+        //${session.TY_SESSION_CONFIG_USER.alias}
+        String tpl17 = "<#if (session.TY_SESSION_CONFIG_USER)??>${session.TY_SESSION_CONFIG_USER.alias}<#else>${session.E_SESSION_USER_DETAIL_KEY.id}</#if>";
+
+
+        String result = LegoUtil.transferInputValue(tpl17, map);
+
         String result2 = LegoUtil.transferInputValue(tpl16, map);
         System.out.println("result="+result);
-        System.out.println("result2="+result2);
+//        System.out.println("result2="+result2);
 
 
 
