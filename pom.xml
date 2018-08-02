@@ -291,12 +291,12 @@
         <dependency>
             <groupId>greatbee</groupId>
             <artifactId>ty-server-core</artifactId>
-            <version>2.0.19</version>
+            <version>2.0.21</version>
         </dependency>
         <dependency>
             <groupId>greatbee</groupId>
             <artifactId>ty-lego-vendor</artifactId>
-            <version>1.0.24</version>
+            <version>1.0.25</version>
         </dependency>
         <dependency>
             <groupId>greatbee</groupId>

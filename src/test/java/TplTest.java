@@ -96,13 +96,18 @@ public class TplTest {
         //${session.TY_SESSION_CONFIG_USER.alias}
         String tpl17 = "<#if (session.TY_SESSION_CONFIG_USER)??>${session.TY_SESSION_CONFIG_USER.alias}<#else>${session.E_SESSION_USER_DETAIL_KEY.id}</#if>";
 
+        String tpl18 = "${.now?string('yyMMddSSHHmmsss') + 1}";//yyMMddHHmmss
+        String tpl19 = "${.now?string('yyMMddSSHHmmsss')}";//yyMMddHHmmss
 
-        String result = LegoUtil.transferInputValue(tpl17, map);
+        String result = LegoUtil.transferInputValue(tpl18, map);
 
-        String result2 = LegoUtil.transferInputValue(tpl16, map);
+        // 1808011700879033
+        String result2 = LegoUtil.transferInputValue(tpl19, map);
         System.out.println("result="+result);
-//        System.out.println("result2="+result2);
+        System.out.println("result2="+result2);
 
+        Object a = new String[]{"a", "b", "c"};
+        System.out.println(a instanceof String[]);
 
 
     }
