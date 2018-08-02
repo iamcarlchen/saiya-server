@@ -29,7 +29,7 @@
         "www.mokelay.com":"/home_ln",
 
         //领鸟
-         "fast.dtbird.cn":"home_dtbird",
+         "fast.dtbird.cn":"/home_dtbird",
 
         //赤峰测试域名
         "b-chifeng.saiyachina.com":"/ty_b_app_dashboard",
@@ -42,7 +42,17 @@
     };
 
     var Domain_SSO = {
-        "www.mokelay.com":"/ty-login"
+        // Mokelay 相关
+        "www.mokelay.com":"/ty-login",
+        
+
+        //赤峰测试域名
+        "b-chifeng.saiyachina.com":"/ty_b_login",
+
+        //赤峰正式，平台(center),运营(o)针对E端,工厂(f)，门店(s)，针对B端
+        "o.red-deal.com":"/ty-login",
+        "f.red-deal.com":"/ty_b_login",
+        "s.red-deal.com":"/ty_b_login"
     };
 
     var home = Domain_Home[document.location.hostname];
@@ -52,7 +62,8 @@
 
     var sso = Domain_SSO[document.location.hostname];
     if(sso){
-        window._TY_SSOURL = sso;
+        var CurrentDomain = window.location.protocol + "//" + window.location.host;
+        window._TY_SSOURL = CurrentDomain + "/#"+sso;
     }
 
     var TY_Client_Domain = "http://ty-cdn.greatbee.com/ty-client-core/";
