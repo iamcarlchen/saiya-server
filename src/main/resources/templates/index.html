@@ -40,14 +40,22 @@
         "f.red-deal.com":"/ty_b_app_dashboard",
         "s.red-deal.com":"/ty_b_app_dashboard"
     };
+
+    var Domain_SSO = {
+        "www.mokelay.com":"/ty-login"
+    };
+
     var home = Domain_Home[document.location.hostname];
     if(home){
         window._TY_Home = home;
     }
 
-//    var TY_Client_Domain = "http://greatbee-ty.oss-cn-hangzhou.aliyuncs.com/run_dist/";
+    var sso = Domain_SSO[document.location.hostname];
+    if(sso){
+        window._TY_SSOURL = sso;
+    }
+
     var TY_Client_Domain = "http://ty-cdn.greatbee.com/ty-client-core/";
-	// var TY_Client_Domain = "http://localhost:8080/run_dist/";
     window.loadTY = function(hash){
         console.log("load hash=" + hash);
 
