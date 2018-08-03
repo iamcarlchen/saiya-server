@@ -99,15 +99,30 @@ public class TplTest {
         String tpl18 = "${.now?string('yyMMddSSHHmmsss') + 1}";//yyMMddHHmmss
         String tpl19 = "${.now?string('yyMMddSSHHmmsss')}";//yyMMddHHmmss
 
-        String result = LegoUtil.transferInputValue(tpl18, map);
+        List<String> arrayStrs = new ArrayList<>();
+        arrayStrs.add("[[\"contacts-update\",\"contacts-export\",\"contacts-import\",\"daily-report-export\"],[\"letter-history\",\"paita\",\"paita-import\"]]");
+        map.put("arrayList",arrayStrs);
 
-        // 1808011700879033
-        String result2 = LegoUtil.transferInputValue(tpl19, map);
+        String tpl20 = "<#list arrayList as item>" +
+                            "<#list item?eval as item2>" +
+                                "<#list item2 as item3>" +
+                                    "'${item3}'" +
+                                    "<#sep>,</#sep>"+
+                                "</#list>"+
+                                "<#sep>,</#sep>"+
+                            "</#list>"+
+                        "</#list>";
+
+
+        String result = LegoUtil.transferInputValue(tpl20, map);
         System.out.println("result="+result);
-        System.out.println("result2="+result2);
 
-        Object a = new String[]{"a", "b", "c"};
-        System.out.println(a instanceof String[]);
+//        String result2 = LegoUtil.transferInputValue(tpl19, map);
+
+//        System.out.println("result2="+result2);
+//
+//        Object a = new String[]{"a", "b", "c"};
+//        System.out.println(a instanceof String[]);
 
 
     }
