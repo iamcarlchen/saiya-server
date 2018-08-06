@@ -100,18 +100,26 @@ public class TplTest {
         String tpl19 = "${.now?string('yyMMddSSHHmmsss')}";//yyMMddHHmmss
 
         List<String> arrayStrs = new ArrayList<>();
-        arrayStrs.add("[[\"contacts-update\",\"contacts-export\",\"contacts-import\",\"daily-report-export\"],[\"letter-history\",\"paita\",\"paita-import\"]]");
-        map.put("arrayList",arrayStrs);
+//        arrayStrs.add("[[\"contacts-update\",\"contacts-export\",\"contacts-import\",\"daily-report-export\"],[\"letter-history\",\"paita\",\"paita-import\"]]");
+        arrayStrs.add("[[],[\"letter-history\",\"paita\",\"paita-import\"]]");
+//        arrayStrs.add("");
+        map.put("arrayList",null);
 
-        String tpl20 = "<#list arrayList as item>" +
-                            "<#list item?eval as item2>" +
-                                "<#list item2 as item3>" +
-                                    "'${item3}'" +
-                                    "<#sep>,</#sep>"+
+        String tpl20 ="<#if arrayList?? && arrayList[0]?length gt 0>"+
+                            "<#list arrayList as item>" +
+                                "<#list item?eval as item2>" +
+                                    "<#list item2 as item3>" +
+                                        "'${item3}'" +
+                                        "<#sep>,</#sep>"+
+                                    "</#list>"+
+                                    "<#if item2[0]?? >"+
+                                        "<#sep>,</#sep>"+
+                                    "</#if>"+
                                 "</#list>"+
-                                "<#sep>,</#sep>"+
                             "</#list>"+
-                        "</#list>";
+                        "</#if>";
+
+        String tpl21 = "<#if arrayList[0]?length gt 0 >111<#else>222</#if>";
 
 
         String result = LegoUtil.transferInputValue(tpl20, map);
