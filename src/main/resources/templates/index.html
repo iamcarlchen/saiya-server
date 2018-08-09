@@ -5,7 +5,7 @@
     <title>加载中......</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline' 'unsafe-eval' 'self' ty-cdn.greatbee.com cdn.bootcss.com *.baidu.com ">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline' 'unsafe-eval' 'self' ty-cdn.greatbee.com cdnjs.cloudflare.com cdn.bootcss.com *.baidu.com ">
 </head>
 
 <body>
@@ -29,7 +29,7 @@
         "www.mokelay.com":"/home_ln",
 
         //领鸟
-         "fast.dtbird.cn":"home_dtbird",
+         "fast.dtbird.cn":"/home_dtbird",
 
         //赤峰测试域名
         "b-chifeng.saiyachina.com":"/ty_b_app_dashboard",
@@ -40,14 +40,33 @@
         "f.red-deal.com":"/ty_b_app_dashboard",
         "s.red-deal.com":"/ty_b_app_dashboard"
     };
+
+    var Domain_SSO = {
+        // Mokelay 相关
+        "www.mokelay.com":"/ty-login",
+        
+
+        //赤峰测试域名
+        "b-chifeng.saiyachina.com":"/ty_b_login",
+
+        //赤峰正式，平台(center),运营(o)针对E端,工厂(f)，门店(s)，针对B端
+        "o.red-deal.com":"/ty-login",
+        "f.red-deal.com":"/ty_b_login",
+        "s.red-deal.com":"/ty_b_login"
+    };
+
     var home = Domain_Home[document.location.hostname];
     if(home){
         window._TY_Home = home;
     }
 
-//    var TY_Client_Domain = "http://greatbee-ty.oss-cn-hangzhou.aliyuncs.com/run_dist/";
+    var sso = Domain_SSO[document.location.hostname];
+    if(sso){
+        var CurrentDomain = window.location.protocol + "//" + window.location.host;
+        window._TY_SSOURL = CurrentDomain + "/#"+sso;
+    }
+
     var TY_Client_Domain = "http://ty-cdn.greatbee.com/ty-client-core/";
-	// var TY_Client_Domain = "http://localhost:8080/run_dist/";
     window.loadTY = function(hash){
         console.log("load hash=" + hash);
 
@@ -86,4 +105,22 @@
     iframe.height = 0;
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
+</script>
+
+<script>
+    window.onload=function () {
+        document.addEventListener('touchstart',function (event) {
+            if(event.touches.length>1){
+                event.preventDefault();
+            }
+        })
+        var lastTouchEnd=0;
+        document.addEventListener('touchend',function (event) {
+            var now=(new Date()).getTime();
+            if(now-lastTouchEnd<=300){
+                event.preventDefault();
+            }
+            lastTouchEnd=now;
+        },false)
+    }
 </script>
