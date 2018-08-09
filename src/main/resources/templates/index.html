@@ -23,17 +23,14 @@
         //赛吖相关
         "ty.saiyachina.com":"/home_ln",
         "xlx.saiyachina.com":"/xlx_c_home_page",
-
         //Mokelay相关
         "demo.greatbee.com":"/home_ln",
         "www.mokelay.com":"/home_ln",
-
         //领鸟
          "fast.dtbird.cn":"/home_dtbird",
 
         //赤峰测试域名
         "b-chifeng.saiyachina.com":"/ty_b_app_dashboard",
-
         //赤峰正式，平台(center),运营(o)针对E端,工厂(f)，门店(s)，针对B端
         "center.red-deal.com":"/home_ln",
         "o.red-deal.com":"/home_ln",
@@ -48,11 +45,10 @@
 
         //赤峰测试域名
         "b-chifeng.saiyachina.com":"/ty_b_login",
-
         //赤峰正式，平台(center),运营(o)针对E端,工厂(f)，门店(s)，针对B端
-        "o.red-deal.com":"/ty-login",
-        "f.red-deal.com":"/ty_b_login",
-        "s.red-deal.com":"/ty_b_login"
+        "o.red-deal.com":"/retail_e_login",
+        "f.red-deal.com":"/retail_b_login",
+        "s.red-deal.com":"/retail_b_login"
     };
 
     var home = Domain_Home[document.location.hostname];
@@ -69,7 +65,6 @@
     var TY_Client_Domain = "http://ty-cdn.greatbee.com/ty-client-core/";
     window.loadTY = function(hash){
         console.log("load hash=" + hash);
-
         function addLink(url) {
             var link = document.createElement("link");
             link.type = "text/css";
@@ -78,14 +73,12 @@
             var head = document.getElementsByTagName("head")[0];
             head.appendChild(link);
         }
-
         function addScript(url) {
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.src = url;
             document.body.appendChild(script);
         }
-
         if(hash && hash.length>0){
             addLink(TY_Client_Domain + "main." + hash + ".css");
             addScript(TY_Client_Domain + "main." + hash + ".js");
@@ -94,9 +87,7 @@
             addScript(TY_Client_Domain + "main.js");
         }
     }
-
 //    window.loadTY("e74f2a2eb280f1a7260d");
-
     var currentDomain = window.location.protocol+"//"+window.location.host;
     var iframe = document.createElement("iframe");
     iframe.src = TY_Client_Domain + "hash.html?time=" + new Date().getTime() + "&domain="+ currentDomain;
