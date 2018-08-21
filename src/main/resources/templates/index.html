@@ -8,14 +8,105 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-inline' 'unsafe-eval' 'self' ty-cdn.greatbee.com cdnjs.cloudflare.com cdn.bootcss.com *.baidu.com ">
 </head>
 
+<style>
+    @keyframes load{
+        0%{
+            opacity: 1;
+            -webkit-transform: scale(1.2);
+        }
+        100%{
+            opacity: .2;
+            -webkit-transform: scale(.2);
+        }
+    }
+    @-webkit-keyframes load{
+        0%{
+            opacity: 1;
+            -webkit-transform: scale(1.2);
+        }
+        100%{
+            opacity: .2;
+            -webkit-transform: scale(.2);
+        }
+    }
+    .bb_loading{
+        width: 150px;
+        height: 5px;
+        margin: 0 auto;
+        text-align: center;
+        box-sizing: content-box;
+        padding-bottom: 1rem;
+    }
+    .bb_loading span{
+        display: inline-block;
+        width: 15px;
+        height: 100%;
+        margin-right: 5px;
+        background: lightgreen;
+        background:#33BEFE;
+        -webkit-animation: load 1.04s ease infinite;
+        animation: load 1.04s ease infinite;
+    }
+    .bb_loading span:last-child{
+        margin-right: 0px;
+    }
+
+    .bb_loading span:nth-child(1){
+        -webkit-animation-delay:0.13s;
+        animation-delay:0.13s;
+    }
+    .bb_loading span:nth-child(2){
+        -webkit-animation-delay:0.26s;
+        animation-delay:0.26s;
+    }
+    .bb_loading span:nth-child(3){
+        -webkit-animation-delay:0.39s;
+        animation-delay:0.39s;
+    }
+    .bb_loading span:nth-child(4){
+        -webkit-animation-delay:0.52s;
+        animation-delay:0.52s;
+    }
+    .bb_loading span:nth-child(5){
+        -webkit-animation-delay:0.65s;
+        animation-delay:0.65s;
+    }
+    #home_loading{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -30px;
+        margin-left: -75px;
+    }
+</style>
+
 <body>
     <div id="app">
         <router-view name="header"></router-view>
         <router-view></router-view>
     </div>
+
+    <div id="home_loading" class="bb_loading ">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
 </body>
 
 </html>
+
+<script>
+    var time = window.setInterval(function(){
+        var pageTitle = document.title;
+        if(pageTitle!='加载中......'){
+            window.clearInterval(time);
+            document.getElementById("home_loading").style.display="none";
+        }
+    },300);
+</script>
 
 
 <script type="text/javascript">
