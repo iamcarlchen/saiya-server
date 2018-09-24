@@ -102,6 +102,10 @@ public class XiaoYiAPIController extends TYController {
                                     xiaoyiSQLAdapter.updateQuery(createOrderDetailQuery, createOrderDetailParams);
                                 }
                             }
+
+                            String updateQuery = "update tb_order o set o.partner = (select serialNumber from tb_b_user_info e where e.mobilephone=?) where o.buyerMobilephone=?;";
+                            Object[] updateParams = new Object[]{buyerMobilephone, buyerMobilephone};
+                            xiaoyiSQLAdapter.updateQuery(updateQuery, updateParams);
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -109,19 +113,65 @@ public class XiaoYiAPIController extends TYController {
 
                     case "weidian.order.already_payment":
                         //已付款（直接到账）/已付款待发货（担保交易）
+                        //更新订单状态
+                        try {
+                            String updateOrderQuery = "update `tb_order` set `orderStatus`=?,`orderStatusDesc`=?,`updateDate`=? where serialNumber=?;";
+                            Object[] updateOrderParams = new Object[]{
+                                    2,
+                                    "已付款"
+                                    , DataUtil.formatDateTime(new Date(System.currentTimeMillis())),
+                                    orderSN
+                            };
 
+                            xiaoyiSQLAdapter.updateQuery(updateOrderQuery, updateOrderParams);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     case "weidian.order.delivered":
                         //已发货（担保交易）/已完成（直接到账+货到付款）
-
+                        try {
+                            String updateOrderQuery = "update `tb_order` set `orderStatus`=?,`orderStatusDesc`=?,`updateDate`=? where serialNumber=?;";
+                            Object[] updateOrderParams = new Object[]{
+                                    3,
+                                    "已发货"
+                                    , DataUtil.formatDateTime(new Date(System.currentTimeMillis())),
+                                    orderSN
+                            };
+                            xiaoyiSQLAdapter.updateQuery(updateOrderQuery, updateOrderParams);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     case "weidian.order.confirm_eceipt":
                         //已确认收货（担保交易）
-
+                        try {
+                            String updateOrderQuery = "update `tb_order` set `orderStatus`=?,`orderStatusDesc`=?,`updateDate`=? where serialNumber=?;";
+                            Object[] updateOrderParams = new Object[]{
+                                    4,
+                                    "已确认收货"
+                                    , DataUtil.formatDateTime(new Date(System.currentTimeMillis())),
+                                    orderSN
+                            };
+                            xiaoyiSQLAdapter.updateQuery(updateOrderQuery, updateOrderParams);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     case "weidian.order.finished":
                         //交易成功
-
+                        try {
+                            String updateOrderQuery = "update `tb_order` set `orderStatus`=?,`orderStatusDesc`=?,`updateDate`=? where serialNumber=?;";
+                            Object[] updateOrderParams = new Object[]{
+                                    0,
+                                    "交易成功"
+                                    , DataUtil.formatDateTime(new Date(System.currentTimeMillis())),
+                                    orderSN
+                            };
+                            xiaoyiSQLAdapter.updateQuery(updateOrderQuery, updateOrderParams);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     case "weidian.order.refund_byweidian":
                         //微店退款中
