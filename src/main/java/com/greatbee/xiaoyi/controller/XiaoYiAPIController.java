@@ -1,5 +1,6 @@
 package com.greatbee.xiaoyi.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.greatbee.procut.Response;
 import com.greatbee.procut.TYController;
@@ -28,7 +29,8 @@ public class XiaoYiAPIController extends TYController {
     @ResponseBody
     WeidianResponse weidianMessage(HttpServletRequest request, HttpServletResponse response) {
         logger.info("[weidian][message_push]");
-
+        String reqJSONString = JSONObject.toJSONString(request.getParameterMap());
+        logger.info("[weidian][message_push_body]" + reqJSONString);
         logger.info("[weidian][message_push_end]");
         return new WeidianResponse();
     }
