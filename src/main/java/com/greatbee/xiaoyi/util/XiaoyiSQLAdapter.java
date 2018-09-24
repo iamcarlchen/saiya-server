@@ -4,7 +4,7 @@ import com.greatbee.base.bean.DBException;
 import com.greatbee.base.util.ArrayUtil;
 import com.greatbee.core.manager.TYDriver;
 import com.greatbee.core.util.DataSourceUtils;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
