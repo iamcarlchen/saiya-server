@@ -26,11 +26,9 @@ public class XiaoYiAPIController extends TYController {
      */
     @RequestMapping(value = "/weidian/message", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
-    WeidianResponse weidianMessage(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject jsonParam) {
+    WeidianResponse weidianMessage(HttpServletRequest request, HttpServletResponse response) {
         logger.info("[weidian][message_push]");
-        if (jsonParam != null) {
-            logger.info("[weidian][message_push_body]" + jsonParam.toJSONString());
-        }
+
         logger.info("[weidian][message_push_end]");
         return new WeidianResponse();
     }
