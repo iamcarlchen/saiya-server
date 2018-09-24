@@ -102,10 +102,15 @@ public class XiaoYiAPIController extends TYController {
                                     xiaoyiSQLAdapter.updateQuery(createOrderDetailQuery, createOrderDetailParams);
                                 }
                             }
-
+                            //更新合伙人id
                             String updateQuery = "update tb_order o set o.partner = (select serialNumber from tb_b_user_info e where e.mobilephone=?) where o.buyerMobilephone=?;";
                             Object[] updateParams = new Object[]{buyerMobilephone, buyerMobilephone};
                             xiaoyiSQLAdapter.updateQuery(updateQuery, updateParams);
+                            //更新订单数
+                            String updateOrderCountQuery = "update tb_b_user_info b set b.orderCount =(select count(*) as cc from tb_order o where o.buyerMobilephone=? ) where b.mobilephone=?;";
+                            Object[] updateOrderCountParams = new Object[]{buyerMobilephone, buyerMobilephone};
+                            xiaoyiSQLAdapter.updateQuery(updateOrderCountQuery, updateOrderCountParams);
+
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -175,11 +180,33 @@ public class XiaoYiAPIController extends TYController {
                         break;
                     case "weidian.order.refund_byweidian":
                         //微店退款中
-
+                        try {
+                            String buyerMobilephone = contentObject.getJSONObject("message").getString("user_phone");
+                            String updateQuery = "update tb_finance_rebate_apply set applyStatus=200,status=200 where id=(select a.id as id from tb_finance_rebate_apply a,tb_b_user_info b where a.partner=b.serialNumber and  a.status>0 and a.applyStatus=2 and b.mobilephone=? order by a.id asc limit 0,1)";
+                            Object[] updateParams = new Object[]{
+                                    buyerMobilephone
+                            };
+                            xiaoyiSQLAdapter.updateQuery(updateQuery, updateParams);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     case "weidian.order.refund_suc":
                         //退款成功
-
+                        try {
+                            //更新返现申请信息
+                            String buyerMobilephone = contentObject.getJSONObject("message").getString("user_phone");
+                            String updateApplyQuery = "update tb_finance_rebate_apply set applyStatus=0,status=0 where id=(select a.id as id from tb_finance_rebate_apply a,tb_b_user_info b where a.partner=b.serialNumber and  a.status>0 and a.applyStatus=2 and b.mobilephone=? order by a.id asc limit 0,1)";
+                            Object[] updateApplyParams = new Object[]{
+                                    buyerMobilephone
+                            };
+                            xiaoyiSQLAdapter.updateQuery(updateApplyQuery, updateApplyParams);
+                            //更新返现设备信息
+                            String updateApplyDeviceQuery = "update tb_finance_rebate_device d set d.status=0,d.applyStatus=0 where d.rebateOrderSN in (select a.serialNumber as serialNumber from tb_finance_rebate_apply a,tb_b_user_info b where a.partner=b.serialNumber and a.status=0 and b.mobilephone=?)";
+                            xiaoyiSQLAdapter.updateQuery(updateApplyDeviceQuery, updateApplyParams);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                         break;
                 }
             }
