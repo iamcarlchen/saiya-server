@@ -81,7 +81,7 @@ public class XiaoYiAPIController extends TYController {
                             Double amount = DataUtil.getDouble(contentObject.getJSONObject("message").getString("total"), 0);
                             Integer count = DataUtil.getInt(contentObject.getJSONObject("message").getString("quantity"), 0);
 
-                            String createOrderQuery = "insert into `tb_order` (`name`,`description`,`createDate`,`buyerMobilephone`,`amount`,`orderStatus`,`orderStatusDesc`,`buyCount`,`serialNumber`,`partner`)";
+                            String createOrderQuery = "insert into `tb_order` (`name`,`description`,`createDate`,`buyerMobilephone`,`amount`,`orderStatus`,`orderStatusDesc`,`buyCount`,`serialNumber`,`partner`) values (?,?,?,?,?,?,?,?,?,?)";
                             Object[] createOrderParams = new Object[]{"合伙人订单", "来自合伙人微店订单", DataUtil.formatDateTime(new Date(System.currentTimeMillis())), buyerMobilephone, amount, 1, "下单未付款", count, orderSN, ""};
                             xiaoyiSQLAdapter.updateQuery(createOrderQuery, createOrderParams);
                             //创建订单明细
@@ -106,6 +106,7 @@ public class XiaoYiAPIController extends TYController {
                             e.printStackTrace();
                         }
                         break;
+
                     case "weidian.order.already_payment":
                         //已付款（直接到账）/已付款待发货（担保交易）
 
