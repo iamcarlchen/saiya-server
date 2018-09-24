@@ -107,7 +107,7 @@ public class XiaoYiAPIController extends TYController {
                             Object[] updateParams = new Object[]{buyerMobilephone, buyerMobilephone};
                             xiaoyiSQLAdapter.updateQuery(updateQuery, updateParams);
                             //更新订单数
-                            String updateOrderCountQuery = "update tb_b_user_info b set b.orderCount =(select count(*) as cc from tb_order o where o.buyerMobilephone=? ) where b.mobilephone=?;";
+                            String updateOrderCountQuery = "update tb_b_user_info b set b.buyOrderCount =(select count(*) as cc from tb_order o where o.buyerMobilephone=? ) where b.mobilephone=?;";
                             Object[] updateOrderCountParams = new Object[]{buyerMobilephone, buyerMobilephone};
                             xiaoyiSQLAdapter.updateQuery(updateOrderCountQuery, updateOrderCountParams);
 
