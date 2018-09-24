@@ -3,6 +3,7 @@ package com.greatbee.xiaoyi.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.greatbee.base.bean.DBException;
+import com.greatbee.base.util.DataUtil;
 import com.greatbee.base.util.StringUtil;
 import com.greatbee.core.bean.constant.DBMT;
 import com.greatbee.core.bean.oi.Field;
@@ -62,7 +63,7 @@ public class XiaoYiAPIController extends TYController {
             try {
                 //插入log数据
                 xiaoyiSQLAdapter.updateQuery("insert into tb_weidian_order_log(`createDate`,`orderSN`,`message`,`status`) values (?,?,?,?)",
-                        new Object[]{new Date(System.currentTimeMillis()), orderSN, message, type});
+                        new Object[]{DataUtil.formatDateTime(new Date(System.currentTimeMillis())), orderSN, message, type});
 
             } catch (SQLException e) {
                 e.printStackTrace();
