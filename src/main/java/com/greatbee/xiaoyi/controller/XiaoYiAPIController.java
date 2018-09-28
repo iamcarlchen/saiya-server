@@ -182,7 +182,7 @@ public class XiaoYiAPIController extends TYController {
                         //微店退款中
                         try {
                             String buyerMobilephone = contentObject.getJSONObject("message").getString("user_phone");
-                            String updateQuery = "update tb_finance_rebate_apply a,tb_b_user_info b set a.applyStatus=200,a.status=200 where a.partner=b.serialNumber and  a.status>0 and a.applyStatus=2 and b.mobilephone=?";
+                            String updateQuery = "update tb_finance_rebate_apply a,tb_b_user_info b set a.applyStatus=200,a.status=200,a.processDesc='打款中' where a.partner=b.serialNumber and  a.status>0 and a.applyStatus=2 and b.mobilephone=?";
 //                            String updateQuery = "update tb_finance_rebate_apply set applyStatus=200,status=200 where id=(select a.id as id from tb_finance_rebate_apply a,tb_b_user_info b where a.partner=b.serialNumber and  a.status>0 and a.applyStatus=2 and b.mobilephone=? order by a.id asc limit 0,1)";
                             Object[] updateParams = new Object[]{
                                     buyerMobilephone
@@ -197,7 +197,7 @@ public class XiaoYiAPIController extends TYController {
                         try {
                             //更新返现申请信息
                             String buyerMobilephone = contentObject.getJSONObject("message").getString("user_phone");
-                            String updateApplyQuery = "update tb_finance_rebate_apply a,tb_b_user_info b set a.applyStatus=0,a.status=0 where a.partner=b.serialNumber and  a.status>0 and a.applyStatus=200 and b.mobilephone=?";
+                            String updateApplyQuery = "update tb_finance_rebate_apply a,tb_b_user_info b set a.applyStatus=0,a.status=0,a.processDesc='打款成功' where a.partner=b.serialNumber and  a.status>0 and a.applyStatus=200 and b.mobilephone=?";
 //                            String updateApplyQuery = "update tb_finance_rebate_apply set applyStatus=0,status=0 where id=(select a.id as id from tb_finance_rebate_apply a,tb_b_user_info b where a.partner=b.serialNumber and  a.status>0 and a.applyStatus=2 and b.mobilephone=? order by a.id asc limit 0,1)";
                             Object[] updateApplyParams = new Object[]{
                                     buyerMobilephone
