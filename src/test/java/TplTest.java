@@ -121,8 +121,13 @@ public class TplTest {
 
         String tpl21 = "<#if arrayList[0]?length gt 0 >111<#else>222</#if>";
 
+        String tpl22="${a+'-'+b+'_'+c}";
 
-        String result = LegoUtil.transferInputValue(tpl20, map);
+        map.put("a","123");
+        map.put("b","456");
+        map.put("c","789");
+
+        String result = LegoUtil.transferInputValue(tpl22, map);
         System.out.println("result="+result);
 
 //        String result2 = LegoUtil.transferInputValue(tpl19, map);
