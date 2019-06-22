@@ -15,14 +15,14 @@
             <list>
                 <value>classpath:config.properties</value>
                 <value>classpath:db/db_ty.properties</value>
-                <value>classpath:db/survey.properties</value>
+                <!--<value>classpath:db/survey.properties</value>-->
             </list>
         </property>
     </bean>
 
     <!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
     <context:component-scan base-package="com.greatbee"/>
-    <context:component-scan base-package="com.chinaredstar.cms"/>
+    <!--<context:component-scan base-package="com.chinaredstar.cms"/>-->
     <context:annotation-config/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
@@ -32,5 +32,5 @@
     <import resource="classpath:ty_config.xml"/>
 
     <!-- Survey Server Config-->
-    <import resource="classpath:conf/survey_server.xml"/>
+    <!--<import resource="classpath:conf/survey_server.xml"/>-->
 </beans>
